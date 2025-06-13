@@ -1,0 +1,20 @@
+.price_area {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--offset-base-size) * 2);
+}
+
+.price_area.center {
+	justify-content: center;
+	text-align: center;
+}
+
+.price_area.start {
+	justify-content: start;
+	text-align: start;
+}
+
+.price_area.end {
+	justify-content: end;
+	text-align: end;
+}
