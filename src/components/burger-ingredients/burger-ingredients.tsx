@@ -9,7 +9,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CATEGORY_LABELS } from '@/utils/categories-ingredients';
 import { BurgerIngredientItem } from './burget-ingredient-item';
 import { useModal } from '@/hooks/use-modal';
-import { IngredientDetails } from '../modal/ingredient-details';
+import { IngredientDetails } from './ingredient-details';
+import { Modal } from '../modal/modal';
 
 type TBurgerIngredientsProps = {
 	ingredients: TGroupIngredientsByCategory;
@@ -18,7 +19,7 @@ type TBurgerIngredientsProps = {
 export const BurgerIngredients = ({
 	ingredients,
 }: TBurgerIngredientsProps): React.JSX.Element => {
-	const ingredientDetails = useModal<TIngredient>();
+	const currentIngredient = useModal<TIngredient>();
 	return (
 		<section className={styles.burger_ingredients}>
 			<nav>
@@ -45,7 +46,7 @@ export const BurgerIngredients = ({
 								{ingredient.map((item) => {
 									return (
 										<BurgerIngredientItem
-											onIngredientsDetails={() => ingredientDetails.open(item)}
+											onIngredientsDetails={() => currentIngredient.open(item)}
 											key={item._id}
 											ingredient={item}
 										/>
@@ -56,11 +57,11 @@ export const BurgerIngredients = ({
 					);
 				})}
 			</div>
-			<IngredientDetails
-				isOpen={ingredientDetails.isOpen}
-				onClose={ingredientDetails.close}
-				ingredient={ingredientDetails.data}
-			/>
+			{currentIngredient.isOpen && (
+				<Modal title='Детали ингредиента' onClose={currentIngredient.close}>
+					<IngredientDetails ingredient={currentIngredient.data} />
+				</Modal>
+			)}
 		</section>
 	);
 };

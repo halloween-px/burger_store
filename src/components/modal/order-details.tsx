@@ -4,13 +4,9 @@ type PropsOrderDetails = {
 	number: string;
 } & PorpsModal;
 
-export const OrderDetails = ({
-	isOpen,
-	onClose,
-	number,
-}: PropsOrderDetails) => {
+export const OrderDetails = ({ onClose, number }: PropsOrderDetails) => {
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal onClose={onClose}>
 			<h4 className='text text_type_digits-large'>
 				{number ? number : '034536'}
 			</h4>

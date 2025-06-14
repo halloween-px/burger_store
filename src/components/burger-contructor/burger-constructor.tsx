@@ -28,34 +28,36 @@ export const BurgerConstructor = ({
 						extraClass='ml-8 mr-4'
 						isLocked={true}
 						price={bun.price}
-						text={bun.name}
+						text={`${bun.name} (верх)`}
 						thumbnail={bun.image}
 						type='top'
 					/>
 				)}
 				<div className={`${styles.burger_constructor_scroll} pr-4`}>
-					{ingredients.map((ingredient) => {
-						return (
-							<div
-								className={styles.constructor_element_area}
-								key={ingredient._id}>
-								<DragIcon type='primary' className={styles.drag_icon} />
-								<ConstructorElement
-									isLocked={false}
-									price={ingredient.price}
-									text={ingredient.name}
-									thumbnail={ingredient.image}
-								/>
-							</div>
-						);
-					})}
+					{ingredients
+						.filter((ing) => ing.type !== 'bun')
+						.map((ingredient) => {
+							return (
+								<div
+									className={styles.constructor_element_area}
+									key={ingredient._id}>
+									<DragIcon type='primary' className={styles.drag_icon} />
+									<ConstructorElement
+										isLocked={false}
+										price={ingredient.price}
+										text={ingredient.name}
+										thumbnail={ingredient.image}
+									/>
+								</div>
+							);
+						})}
 				</div>
 				{bun && (
 					<ConstructorElement
 						extraClass='ml-8 mr-4'
 						isLocked={true}
 						price={bun.price}
-						text={bun.name}
+						text={`${bun.name} (низ)`}
 						thumbnail={bun.image}
 						type='bottom'
 					/>
@@ -72,11 +74,9 @@ export const BurgerConstructor = ({
 					Оформить заказ
 				</Button>
 			</div>
-			<OrderDetails
-				isOpen={orderDetails.isOpen}
-				onClose={orderDetails.close}
-				number={'034536'}
-			/>
+			{orderDetails.isOpen && (
+				<OrderDetails onClose={orderDetails.close} number={'034536'} />
+			)}
 		</section>
 	);
 };

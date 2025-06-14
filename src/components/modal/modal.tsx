@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom';
 export type PorpsModal = {
 	children?: React.ReactNode;
 	onClose: () => void;
-	isOpen: boolean;
 	portalContainer?: Element | DocumentFragment;
 	title?: string;
 };
@@ -36,7 +35,6 @@ export const Modal = ({
 	children,
 	title,
 	onClose,
-	isOpen,
 	portalContainer = document.body,
 }: PorpsModal) => {
 	useEffect(() => {
@@ -44,14 +42,10 @@ export const Modal = ({
 			if (e.key === 'Escape') onClose();
 		};
 
-		if (isOpen) {
-			document.addEventListener('keydown', handleESC);
-		}
+		document.addEventListener('keydown', handleESC);
 
 		return () => document.removeEventListener('keydown', handleESC);
-	}, [onClose, isOpen]);
-
-	if (!isOpen) return null;
+	}, [onClose]);
 
 	return createPortal(
 		<div className={styles.modal} role='dialog' aria-modal='true'>
