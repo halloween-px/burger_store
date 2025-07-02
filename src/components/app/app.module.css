@@ -9,14 +9,21 @@
 .title {
 	align-self: center;
 	width: 100%;
-	max-width: 1260px;
 }
 
 .main {
-	display: flex;
-	justify-content: space-between;
-	width: 1240px;
 	height: 100%;
-	margin: 0 auto;
 	overflow: hidden;
+}
+
+.container_layout {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.main_layout {
+	display: flex;
+	gap: calc(var(--offset-base-size) * 10);
+	height: calc(100% - 100px);
 }

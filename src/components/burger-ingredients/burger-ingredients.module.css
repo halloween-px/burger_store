@@ -13,3 +13,26 @@
 	text-align: center;
 	list-style-type: none;
 }
+
+.burger_ingredients_scroll {
+	overflow: auto;
+}
+
+.burger_ingredients_wrapper {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: calc(var(--offset-base-size) * 6);
+	row-gap: calc(var(--offset-base-size) * 8);
+}
+
+.burger_ingredients_item {
+	position: relative;
+	text-align: center;
+}
+
+.ingredient_price_area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: calc(var(--offset-base-size) * 2);
+}

@@ -1,0 +1,13 @@
+.ingredient_info_list {
+	display: flex;
+	justify-content: center;
+	gap: calc(var(--offset-base-size) * 5);
+	margin-top: calc(var(--offset-base-size) * 8);
+}
+
+.ingredient_info_list_item {
+	display: flex;
+	flex-direction: column;
+	row-gap: calc(var(--offset-base-size) * 2);
+	color: var(--text-inactive-color);
+}

@@ -5,3 +5,40 @@
 	padding-bottom: 20px;
 	color: var(--text-primary-color);
 }
+
+.burger_constructor_wrapper {
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+.burger_constructor_wrapper,
+.burger_constructor_scroll {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: calc(var(--offset-base-size) * 4);
+	height: 100%;
+}
+
+.burger_constructor_scroll {
+	overflow: auto;
+}
+
+.constructor_element_area {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+}
+
+.drag_icon {
+	cursor: grab;
+}
+
+.burger_constructor_footer {
+	display: flex;
+	flex-shrink: 0;
+	justify-content: flex-end;
+	gap: calc(var(--offset-base-size) * 10);
+	margin-top: calc(var(--offset-base-size) * 10);
+}
