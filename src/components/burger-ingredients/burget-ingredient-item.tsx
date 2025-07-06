@@ -1,7 +1,10 @@
-import { TIngredient } from '@/utils/types';
 import styles from './burger-ingredients.module.css';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from '../price/price';
+import { TIngredient } from '@/types/ingredients';
+import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
+import { selectIngredientCount } from './selectors';
 
 type PropsIngredientItem = {
 	ingredient: TIngredient;
@@ -12,16 +15,25 @@ export const BurgerIngredientItem = ({
 	ingredient,
 	onIngredientsDetails,
 }: PropsIngredientItem): React.JSX.Element => {
-	const { image, price, name } = ingredient;
+	const { image, price, name, type, _id } = ingredient;
+	const ingredientCount = useSelector(selectIngredientCount(_id));
+
+	const [, ingredientRef] = useDrag({
+		type: type === 'bun' ? 'bun' : 'ingredient',
+		item: { ...ingredient },
+	});
+
 	return (
-		// Был article но линтер ругался на то что он неинтерактивный, поэтому либо div либо button, на button думаю логичнее повесить onClick
 		<button
+			ref={ingredientRef}
 			className={styles.burger_ingredients_item}
 			onClick={() => onIngredientsDetails()}>
 			<img src={image} alt={name} />
 			<Price price={price} size='default' position='center' />
 			<p className='text text_type_main-default mt-2 mb-6'>{name}</p>
-			<Counter count={1} size='default' />
+			{ingredientCount > 0 && (
+				<Counter count={ingredientCount} size='default' />
+			)}
 		</button>
 	);
 };

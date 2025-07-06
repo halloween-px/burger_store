@@ -3,18 +3,11 @@ import styles from './app.module.css';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients.tsx';
 import { BurgerConstructor } from '@components/burger-contructor/burger-constructor.tsx';
 import { AppHeader } from '@components/app-header/app-header.tsx';
-import { Preloader } from '@components/preloader/preloader';
-import useGetIngredients from '@/hooks/use-get-Ingredients';
 import { Container } from '@components/container/container';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export const App = (): React.JSX.Element => {
-	const { ingredients, groupIngedientsByCategory, isLoading, error } =
-		useGetIngredients();
-
-	if (isLoading) return <Preloader />;
-	if (!groupIngedientsByCategory || !ingredients)
-		return <div>Что то пошло не так: {error}</div>;
-
 	return (
 		<div className={styles.app}>
 			<AppHeader />
@@ -26,8 +19,10 @@ export const App = (): React.JSX.Element => {
 						Соберите бургер
 					</h1>
 					<div className={styles.main_layout}>
-						<BurgerIngredients ingredients={groupIngedientsByCategory} />
-						<BurgerConstructor ingredients={ingredients} />
+						<DndProvider backend={HTML5Backend}>
+							<BurgerIngredients />
+							<BurgerConstructor />
+						</DndProvider>
 					</div>
 				</Container>
 			</main>

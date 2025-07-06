@@ -30,6 +30,7 @@
 }
 
 .modal_content {
+	position: relative;
 	margin-top: calc(var(--offset-base-size) * 6);
 	text-align: center;
 }

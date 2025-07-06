@@ -1,13 +1,14 @@
 .burger_constructor {
 	display: flex;
 	flex-direction: column;
-	width: 600px;
-	padding-bottom: 20px;
+	width: 100%;
+	max-width: 600px;
 	color: var(--text-primary-color);
 }
 
 .burger_constructor_wrapper {
 	flex-grow: 1;
+	padding-right: calc(var(--offset-base-size) * 4);
 	overflow: hidden;
 }
 
@@ -21,7 +22,20 @@
 }
 
 .burger_constructor_scroll {
+	width: 100%;
+	margin-right: calc(var(--offset-base-size) * -4);
 	overflow: auto;
+}
+
+.burger_constructor_empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 536px;
+	height: 100%;
+	background: var(--background-element);
+	border-radius: var(--common-border-radius-s);
 }
 
 .constructor_element_area {
@@ -41,4 +55,22 @@
 	justify-content: flex-end;
 	gap: calc(var(--offset-base-size) * 10);
 	margin-top: calc(var(--offset-base-size) * 10);
+}
+
+.burger_constructor_item {
+	width: 100%;
+	max-width: 536px;
+	border: 1px dashed transparent;
+}
+
+.active-drop {
+	border-color: var(--colors-interface-accent);
+}
+
+.active-drop.top {
+	border-radius: var(--top-constructor-item-border-radius);
+}
+
+.active-drop.middle {
+	border-radius: var(--common-border-radius-s);
 }
