@@ -2,6 +2,7 @@ import { addIngridient } from '@/services/burger-constructor';
 import { useAppDispatch } from '@/store/hooks';
 import { TIngredient } from '@/types/ingredients';
 import { useDrop } from 'react-dnd';
+import { v4 as uuid } from 'uuid';
 
 type TItemType = 'bun' | 'ingredient';
 
@@ -16,7 +17,7 @@ export const useDropIngredients = (type: TItemType) => {
 		}),
 		drop: (item: TIngredient) => {
 			if (!collect.isHover) return;
-			dispatch(addIngridient(item));
+			dispatch(addIngridient({ ...item, uuid: uuid() }));
 		},
 	});
 

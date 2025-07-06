@@ -19,7 +19,6 @@ export const BurgerConstructorList = forwardRef<HTMLDivElement, TProps>(
 		const dispatch = useAppDispatch();
 		const handleRemoveIngredient = useCallback(
 			(uuid: string) => {
-				console.log('fewfew');
 				dispatch(removeIngredient({ uuid }));
 			},
 			[dispatch]
