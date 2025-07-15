@@ -1,67 +1,86 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './burger-ingredients.module.css';
-import {
-	TCategoryIngredientName,
-	TGroupIngredientsByCategory,
-	TIngredient,
-} from '@utils/types.ts';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CATEGORY_LABELS } from '@/utils/categories-ingredients';
-import { BurgerIngredientItem } from './burget-ingredient-item';
-import { useModal } from '@/hooks/use-modal';
-import { IngredientDetails } from './ingredient-details';
-import { Modal } from '../modal/modal';
+import { BurgerIngredientTabs } from './burger-ingredients-tabs';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { Preloader } from '../preloader/preloader';
+import { BurgerIngredientsList } from './burger-ingredients-list';
+import { TCategoryIngredientName } from '@/types/ingredients';
 
-type TBurgerIngredientsProps = {
-	ingredients: TGroupIngredientsByCategory;
-};
+export const BurgerIngredients = (): React.JSX.Element => {
+	const { data: ingredients, isLoading, error } = useGetIngredientsQuery();
+	const [currentTab, setCurrentTab] = useState<TCategoryIngredientName>('bun');
 
-export const BurgerIngredients = ({
-	ingredients,
-}: TBurgerIngredientsProps): React.JSX.Element => {
-	const currentIngredient = useModal<TIngredient>();
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	const bunRef = useRef<HTMLDivElement>(null);
+	const sauceRef = useRef<HTMLDivElement>(null);
+	const mainRef = useRef<HTMLDivElement>(null);
+
+	const handleTabClick = (type: TCategoryIngredientName) => {
+		setCurrentTab(type);
+
+		const sectionMap: Record<
+			TCategoryIngredientName,
+			React.RefObject<HTMLDivElement>
+		> = {
+			bun: bunRef,
+			sauce: sauceRef,
+			main: mainRef,
+		};
+
+		const targetRef = sectionMap[type];
+		if (targetRef.current) {
+			targetRef.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
+		}
+	};
+
+	useEffect(() => {
+		const container = containerRef.current;
+		if (!container) return;
+
+		const handleScroll = () => {
+			if (!bunRef.current || !sauceRef.current || !mainRef.current) return;
+
+			const containerTop = container.getBoundingClientRect().top;
+
+			const bunDist = Math.abs(
+				bunRef.current.getBoundingClientRect().top - containerTop
+			);
+			const sauceDist = Math.abs(
+				sauceRef.current.getBoundingClientRect().top - containerTop
+			);
+			const mainDist = Math.abs(
+				mainRef.current.getBoundingClientRect().top - containerTop
+			);
+
+			const minDist = Math.min(bunDist, sauceDist, mainDist);
+
+			if (minDist === bunDist) setCurrentTab('bun');
+			else if (minDist === sauceDist) setCurrentTab('sauce');
+			else if (minDist === mainDist) setCurrentTab('main');
+		};
+
+		container.addEventListener('scroll', handleScroll);
+		return () => container.removeEventListener('scroll', handleScroll);
+	}, [ingredients]);
+
+	if (isLoading) return <Preloader />;
+	if (error || !ingredients) return <div>Что-то пошло не так</div>;
+
 	return (
 		<section className={styles.burger_ingredients}>
-			<nav>
-				<ul className={styles.menu}>
-					<Tab value='bun' active={true} onClick={() => {}}>
-						Булки
-					</Tab>
-					<Tab value='main' active={false} onClick={() => {}}>
-						Начинки
-					</Tab>
-					<Tab value='sauce' active={false} onClick={() => {}}>
-						Соусы
-					</Tab>
-				</ul>
-			</nav>
-			<div className={`${styles.burger_ingredients_scroll} pr-4`}>
-				{Object.entries(ingredients).map(([type, ingredient]) => {
-					return (
-						<div key={type}>
-							<h4 className='text text_type_main-medium mt-10 mb-6'>
-								{CATEGORY_LABELS[type as TCategoryIngredientName]}
-							</h4>
-							<div className={`${styles.burger_ingredients_wrapper}`}>
-								{ingredient.map((item) => {
-									return (
-										<BurgerIngredientItem
-											onIngredientsDetails={() => currentIngredient.open(item)}
-											key={item._id}
-											ingredient={item}
-										/>
-									);
-								})}
-							</div>
-						</div>
-					);
-				})}
+			<BurgerIngredientTabs current={currentTab} onTabClick={handleTabClick} />
+			<div
+				className={`${styles.burger_ingredients_scroll} pr-4`}
+				ref={containerRef}>
+				<BurgerIngredientsList
+					ingredients={ingredients}
+					refs={{ bun: bunRef, sauce: sauceRef, main: mainRef }}
+				/>
 			</div>
-			{currentIngredient.isOpen && (
-				<Modal title='Детали ингредиента' onClose={currentIngredient.close}>
-					<IngredientDetails ingredient={currentIngredient.data} />
-				</Modal>
-			)}
 		</section>
 	);
 };

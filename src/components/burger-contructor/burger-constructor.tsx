@@ -1,81 +1,74 @@
-import { TIngredient } from '@utils/types.ts';
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './burger-constructor.module.css';
-import {
-	Button,
-	ConstructorElement,
-	DragIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from '../price/price';
-import { useModal } from '@/hooks/use-modal';
 import { OrderDetails } from '../modal/order-details';
+import { useAppSelector } from '@/store/hooks';
+import { BunElement } from './bun-element';
+import { BurgerConstructorList } from './burger-constructor-lists';
+import { useDropIngredients, useModal } from '@/hooks';
+import { useSelector } from 'react-redux';
+import { selectTotalPrice } from '@/selectors/total-price';
 
-type TBurgerConstructorProps = {
-	ingredients: TIngredient[];
-};
+export const BurgerConstructor = (): React.JSX.Element => {
+	const orderDetailsModal = useModal<string[] | null>();
+	const bun = useAppSelector((state) => state.burgerConstructor.bun);
+	const ingredients = useAppSelector(
+		(state) => state.burgerConstructor.ingredients
+	);
+	const totalPrice = useSelector(selectTotalPrice());
+	const { collect: bunCollect, ref: bunRef } = useDropIngredients('bun');
+	const { collect: ingrCollect, ref: ingrRef } =
+		useDropIngredients('ingredient');
 
-export const BurgerConstructor = ({
-	ingredients,
-}: TBurgerConstructorProps): React.JSX.Element => {
-	const orderDetails = useModal<TIngredient | null>();
-	const bun = ingredients.find((ingredient) => ingredient.type === 'bun');
-	const totalPrice = ingredients.reduce((price, i) => (price += i.price), 0);
+	const handleOpenModal = () => {
+		if (bun && ingredients.length >= 2) {
+			orderDetailsModal.open(null);
+		}
+	};
+
+	const ingredientsOrderIds = useMemo(() => {
+		return [...ingredients.map((i) => i._id), bun?._id].filter(
+			Boolean
+		) as string[];
+	}, [ingredients, bun]);
+
+	const classBun =
+		bunCollect.canDrop && bunCollect.getType === 'bun'
+			? `${styles['active-drop']} ${styles.top}`
+			: '';
+	const classIngr =
+		ingrCollect.canDrop && ingrCollect.getType === 'ingredient'
+			? `${styles['active-drop']} ${styles.middle}`
+			: '';
+
 	return (
 		<section className={styles.burger_constructor}>
 			<div className={styles.burger_constructor_wrapper}>
-				{bun && (
-					<ConstructorElement
-						extraClass='ml-8 mr-4'
-						isLocked={true}
-						price={bun.price}
-						text={`${bun.name} (верх)`}
-						thumbnail={bun.image}
-						type='top'
-					/>
-				)}
-				<div className={`${styles.burger_constructor_scroll} pr-4`}>
-					{ingredients
-						.filter((ing) => ing.type !== 'bun')
-						.map((ingredient) => {
-							return (
-								<div
-									className={styles.constructor_element_area}
-									key={ingredient._id}>
-									<DragIcon type='primary' className={styles.drag_icon} />
-									<ConstructorElement
-										isLocked={false}
-										price={ingredient.price}
-										text={ingredient.name}
-										thumbnail={ingredient.image}
-									/>
-								</div>
-							);
-						})}
-				</div>
-				{bun && (
-					<ConstructorElement
-						extraClass='ml-8 mr-4'
-						isLocked={true}
-						price={bun.price}
-						text={`${bun.name} (низ)`}
-						thumbnail={bun.image}
-						type='bottom'
-					/>
-				)}
+				<BunElement bun={bun} ref={bunRef} type='top' className={classBun} />
+				<BurgerConstructorList
+					ingredients={ingredients}
+					ref={ingrRef}
+					className={classIngr}
+				/>
+				<BunElement bun={bun} type='bottom' />
 			</div>
-			<div className={`${styles.burger_constructor_footer} pr-4`}>
+			<div className={`${styles.burger_constructor_footer}`}>
 				<Price price={totalPrice} size='large' />
 				<Button
 					htmlType='button'
 					type='primary'
 					size='medium'
 					extraClass='ml-2'
-					onClick={() => orderDetails.open(null)}>
+					onClick={handleOpenModal}>
 					Оформить заказ
 				</Button>
 			</div>
-			{orderDetails.isOpen && (
-				<OrderDetails onClose={orderDetails.close} number={'034536'} />
+			{orderDetailsModal.isOpen && (
+				<OrderDetails
+					onClose={orderDetailsModal.close}
+					ingredientsIds={ingredientsOrderIds}
+				/>
 			)}
 		</section>
 	);

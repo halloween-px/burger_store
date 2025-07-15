@@ -26,4 +26,5 @@
 	display: flex;
 	gap: calc(var(--offset-base-size) * 10);
 	height: calc(100% - 100px);
+	padding-bottom: calc(var(--offset-base-size) * 5);
 }
