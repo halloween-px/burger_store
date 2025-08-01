@@ -1,19 +1,5 @@
-.app {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	color: var(--text-primary-color);
-	background-color: var(--background-alt);
-}
-
-.title {
-	align-self: center;
-	width: 100%;
-}
-
-.main {
+.hero {
 	height: 100%;
-	overflow: hidden;
 }
 
 .container_layout {
@@ -27,4 +13,9 @@
 	gap: calc(var(--offset-base-size) * 10);
 	height: calc(100% - 100px);
 	padding-bottom: calc(var(--offset-base-size) * 5);
+}
+
+.title {
+	align-self: center;
+	width: 100%;
 }

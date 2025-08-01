@@ -19,10 +19,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 	const handleTabClick = (type: TCategoryIngredientName) => {
 		setCurrentTab(type);
 
-		const sectionMap: Record<
-			TCategoryIngredientName,
-			React.RefObject<HTMLDivElement>
-		> = {
+		const sectionMap: Record<TCategoryIngredientName, React.RefObject<HTMLDivElement>> = {
 			bun: bunRef,
 			sauce: sauceRef,
 			main: mainRef,
@@ -46,15 +43,9 @@ export const BurgerIngredients = (): React.JSX.Element => {
 
 			const containerTop = container.getBoundingClientRect().top;
 
-			const bunDist = Math.abs(
-				bunRef.current.getBoundingClientRect().top - containerTop
-			);
-			const sauceDist = Math.abs(
-				sauceRef.current.getBoundingClientRect().top - containerTop
-			);
-			const mainDist = Math.abs(
-				mainRef.current.getBoundingClientRect().top - containerTop
-			);
+			const bunDist = Math.abs(bunRef.current.getBoundingClientRect().top - containerTop);
+			const sauceDist = Math.abs(sauceRef.current.getBoundingClientRect().top - containerTop);
+			const mainDist = Math.abs(mainRef.current.getBoundingClientRect().top - containerTop);
 
 			const minDist = Math.min(bunDist, sauceDist, mainDist);
 
@@ -73,9 +64,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 	return (
 		<section className={styles.burger_ingredients}>
 			<BurgerIngredientTabs current={currentTab} onTabClick={handleTabClick} />
-			<div
-				className={`${styles.burger_ingredients_scroll} pr-4`}
-				ref={containerRef}>
+			<div className={`${styles.burger_ingredients_scroll} pr-4`} ref={containerRef}>
 				<BurgerIngredientsList
 					ingredients={ingredients}
 					refs={{ bun: bunRef, sauce: sauceRef, main: mainRef }}

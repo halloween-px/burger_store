@@ -6,14 +6,8 @@ type ContainerProps = {
 	className?: string;
 };
 
-export const Container = ({
-	children,
-	className,
-}: ContainerProps): React.JSX.Element => {
+export const Container = ({ children, className }: ContainerProps): React.JSX.Element => {
 	return (
-		<div
-			className={`${style.container} pl-4 pr-4 ${className ? className : ''}`}>
-			{children}
-		</div>
+		<div className={`${style.container} pl-4 pr-4 ${className ? className : ''}`}>{children}</div>
 	);
 };

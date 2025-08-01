@@ -1,7 +1,4 @@
-import {
-	ConstructorElement,
-	DragIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { TIngredient } from '@/types/ingredients';
@@ -41,9 +38,7 @@ export const BurgerConstructorIngredientItem = ({
 	dragRef(dropRef(ref));
 
 	return (
-		<div
-			className={`${styles.constructor_element_area} ${className}`}
-			ref={ref}>
+		<div className={`${styles.constructor_element_area} ${className}`} ref={ref}>
 			<DragIcon type='primary' className={styles.drag_icon} />
 			<ConstructorElement
 				isLocked={false}

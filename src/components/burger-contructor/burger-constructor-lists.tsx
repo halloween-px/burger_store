@@ -3,10 +3,7 @@ import { TIngredient } from '@/types/ingredients';
 import { forwardRef, Ref, useCallback } from 'react';
 import { BurgerConstructorIngredientItem } from './burger-constructor-item';
 import { useAppDispatch } from '@/store/hooks';
-import {
-	moveIngredient,
-	removeIngredient,
-} from '@/services/burger-constructor';
+import { moveIngredient, removeIngredient } from '@/services/burger-constructor';
 
 type TProps = {
 	ingredients: TIngredient[];
@@ -45,9 +42,7 @@ export const BurgerConstructorList = forwardRef<HTMLDivElement, TProps>(
 				) : (
 					<div
 						className={`${styles.burger_constructor_empty} ${styles.burger_constructor_item} ${className} ml-8 mr-4`}>
-						<h4 className='text text_type_main-default'>
-							Переместите ингредиенты
-						</h4>
+						<h4 className='text text_type_main-default'>Переместите ингредиенты</h4>
 					</div>
 				)}
 			</div>

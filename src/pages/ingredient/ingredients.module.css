@@ -1,0 +1,4 @@
+.ingredien_page {
+	margin-top: calc(var(--offset-base-size) * 30);
+	text-align: center;
+}
