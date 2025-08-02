@@ -6,11 +6,15 @@ import { OrderDetails } from '../modal/order-details';
 import { useAppSelector } from '@/store/hooks';
 import { BunElement } from './bun-element';
 import { BurgerConstructorList } from './burger-constructor-lists';
-import { useDropIngredients, useModal } from '@/hooks';
+import { useAuth, useDropIngredients, useModal } from '@/hooks';
 import { useSelector } from 'react-redux';
 import { selectTotalPrice } from '@/selectors/total-price';
+import { useNavigate } from 'react-router-dom';
+import { routesConfig } from '@/routes/routesConfig';
 
 export const BurgerConstructor = (): React.JSX.Element => {
+	const { user } = useAuth();
+	const navigation = useNavigate();
 	const orderDetailsModal = useModal<string[] | null>();
 	const bun = useAppSelector((state) => state.burgerConstructor.bun);
 	const ingredients = useAppSelector((state) => state.burgerConstructor.ingredients);
@@ -19,6 +23,9 @@ export const BurgerConstructor = (): React.JSX.Element => {
 	const { collect: ingrCollect, ref: ingrRef } = useDropIngredients('ingredient');
 
 	const handleOpenModal = () => {
+		if (!user) {
+			navigation(routesConfig.LOGIN);
+		}
 		if (bun && ingredients.length >= 2) {
 			orderDetailsModal.open(null);
 		}
