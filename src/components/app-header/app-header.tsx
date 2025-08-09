@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom';
 import { Container } from '../container/container';
 import styles from './app-header.module.css';
 import {
@@ -6,32 +7,40 @@ import {
 	ProfileIcon,
 	Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { routesConfig } from '@/routes/routesConfig';
 
 export const AppHeader = () => {
+	const getNavLinkClass = (isActive: boolean, extraClass?: string) => {
+		return `${styles.link} ${extraClass} ${isActive ? styles.link_active : ''}`;
+	};
+
 	return (
 		<header className={styles.header}>
 			<Container>
 				<nav className={`${styles.menu}`}>
 					<div className={styles.menu_part_left}>
-						{/*пока тут должны быть ссылки, а не например кнопки или абзацы*/}
-						<a href='/' className={`${styles.link} ${styles.link_active}`}>
+						<NavLink to={routesConfig.MAIN} className={({ isActive }) => getNavLinkClass(isActive)}>
 							<BurgerIcon type='primary' />
 							<p className='text text_type_main-default ml-2'>Конструктор</p>
-						</a>
-						<a href='/feed' className={`${styles.link} ml-10`}>
+						</NavLink>
+						<NavLink
+							to={routesConfig.FEED_ORDERS}
+							className={({ isActive }) => getNavLinkClass(isActive, 'ml-10')}>
 							<ListIcon type='secondary' />
 							<p className='text text_type_main-default ml-2'>Лента заказов</p>
-						</a>
+						</NavLink>
 					</div>
 					<div className={styles.logo}>
-						<Logo />
+						<Link to={routesConfig.MAIN}>
+							<Logo />
+						</Link>
 					</div>
-					<a
-						href='/profile'
-						className={`${styles.link} ${styles.link_position_last}`}>
+					<NavLink
+						to={routesConfig.PROFILE}
+						className={({ isActive }) => getNavLinkClass(isActive, `${styles.link_position_last}`)}>
 						<ProfileIcon type='secondary' />
 						<p className='text text_type_main-default ml-2'>Личный кабинет</p>
-					</a>
+					</NavLink>
 				</nav>
 			</Container>
 		</header>

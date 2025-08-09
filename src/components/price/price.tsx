@@ -19,8 +19,7 @@ export const Price = (props: PropsPrice) => {
 	};
 
 	return (
-		<span
-			className={`${styles.price_area} ${position ? styles[position] : styles.center} mt-2`}>
+		<span className={`${styles.price_area} ${position ? styles[position] : styles.center} mt-2`}>
 			<span itemProp='price' className={sizeObject[size]}>
 				{price}
 			</span>

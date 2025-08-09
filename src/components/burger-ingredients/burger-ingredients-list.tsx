@@ -6,22 +6,22 @@ import {
 } from '@/types/ingredients';
 import { CATEGORY_LABELS } from '@/utils/categories-ingredients';
 import { BurgerIngredientItem } from './burget-ingredient-item';
-import { Modal } from '../modal/modal';
-import { IngredientDetails } from './ingredient-details';
-import { useModal } from '@/hooks/use-modal';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { routesConfig } from '@/routes/routesConfig';
 
 type TBurgerIngredientsProps = {
 	ingredients: TGroupIngredientsByCategory;
-	refs: Partial<
-		Record<TCategoryIngredientName, React.RefObject<HTMLDivElement>>
-	>;
+	refs: Partial<Record<TCategoryIngredientName, React.RefObject<HTMLDivElement>>>;
 };
 
-export const BurgerIngredientsList = ({
-	ingredients,
-	refs,
-}: TBurgerIngredientsProps) => {
-	const currentIngredient = useModal<TIngredient>();
+export const BurgerIngredientsList = ({ ingredients, refs }: TBurgerIngredientsProps) => {
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const handleClickIngredient = (item: TIngredient) => {
+		sessionStorage.setItem('ingredient-modal', JSON.stringify(item));
+		navigate(routesConfig.INGREDIENTS(item._id), { state: { background: location } });
+	};
 
 	return (
 		<>
@@ -29,13 +29,11 @@ export const BurgerIngredientsList = ({
 				const typed = type as TCategoryIngredientName;
 				return (
 					<div key={type} ref={refs[typed]}>
-						<h4 className='text text_type_main-medium mt-10 mb-6'>
-							{CATEGORY_LABELS[typed]}
-						</h4>
+						<h4 className='text text_type_main-medium mt-10 mb-6'>{CATEGORY_LABELS[typed]}</h4>
 						<div className={`${styles.burger_ingredients_wrapper}`}>
 							{ingredient.map((item) => (
 								<BurgerIngredientItem
-									onIngredientsDetails={() => currentIngredient.open(item)}
+									onClick={() => handleClickIngredient(item)}
 									key={item._id}
 									ingredient={item}
 								/>
@@ -44,11 +42,6 @@ export const BurgerIngredientsList = ({
 					</div>
 				);
 			})}
-			{currentIngredient.isOpen && (
-				<Modal title='Детали ингредиента' onClose={currentIngredient.close}>
-					<IngredientDetails ingredient={currentIngredient.data} />
-				</Modal>
-			)}
 		</>
 	);
 };

@@ -8,12 +8,12 @@ import { selectIngredientCount } from './selectors';
 
 type PropsIngredientItem = {
 	ingredient: TIngredient;
-	onIngredientsDetails: () => void;
+	onClick: () => void;
 };
 
 export const BurgerIngredientItem = ({
 	ingredient,
-	onIngredientsDetails,
+	onClick,
 }: PropsIngredientItem): React.JSX.Element => {
 	const { image, price, name, type, _id } = ingredient;
 	const ingredientCount = useSelector(selectIngredientCount(_id));
@@ -24,16 +24,11 @@ export const BurgerIngredientItem = ({
 	});
 
 	return (
-		<button
-			ref={ingredientRef}
-			className={styles.burger_ingredients_item}
-			onClick={() => onIngredientsDetails()}>
+		<button ref={ingredientRef} className={styles.burger_ingredients_item} onClick={onClick}>
 			<img src={image} alt={name} />
 			<Price price={price} size='default' position='center' />
 			<p className='text text_type_main-default mt-2 mb-6'>{name}</p>
-			{ingredientCount > 0 && (
-				<Counter count={ingredientCount} size='default' />
-			)}
+			{ingredientCount > 0 && <Counter count={ingredientCount} size='default' />}
 		</button>
 	);
 };

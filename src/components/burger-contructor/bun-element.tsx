@@ -10,16 +10,14 @@ type TProps = {
 	bun: TIngredient | null;
 };
 
-export const BunElement = forwardRef<HTMLDivElement, TProps>(
-	({ type, className, bun }, ref) => (
-		<div ref={ref} className={`${styles.burger_constructor_item} ${className}`}>
-			<ConstructorElement
-				isLocked
-				type={type}
-				price={bun?.price || 0}
-				text={`${bun?.name || 'Переместите булку'} (${type === 'top' ? 'верх' : 'низ'})`}
-				thumbnail={bun?.image || '/empty-bun.png'}
-			/>
-		</div>
-	)
-);
+export const BunElement = forwardRef<HTMLDivElement, TProps>(({ type, className, bun }, ref) => (
+	<div ref={ref} className={`${styles.burger_constructor_item} ${className}`}>
+		<ConstructorElement
+			isLocked
+			type={type}
+			price={bun?.price || 0}
+			text={`${bun?.name || 'Переместите булку'} (${type === 'top' ? 'верх' : 'низ'})`}
+			thumbnail={bun?.image || '/empty-bun.png'}
+		/>
+	</div>
+));
