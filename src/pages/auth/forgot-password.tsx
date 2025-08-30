@@ -26,7 +26,7 @@ const ForgotPasswordPage = () => {
 		}
 	}, [isSuccess, navigate]);
 
-	if (isLoading) return <Preloader />;
+	if (isLoading) return <Preloader isFull />;
 
 	return (
 		<section className={'mt-30'}>

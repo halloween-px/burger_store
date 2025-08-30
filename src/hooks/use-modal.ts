@@ -4,9 +4,9 @@ export const useModal = <T = void>() => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [data, setData] = useState<T | null>(null);
 
-	const open = useCallback((modalData: T) => {
+	const open = useCallback((modalData?: T) => {
 		setIsOpen(true);
-		setData(modalData);
+		setData(modalData || null);
 	}, []);
 
 	const close = useCallback(() => {

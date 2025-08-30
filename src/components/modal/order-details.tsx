@@ -1,4 +1,4 @@
-import { useCreateOrderMutation } from '@/services/order-details-api';
+import { useCreateOrderMutation } from '@/services/orders/order-details-api';
 import { Modal, PorpsModal } from './modal';
 import { useCallback, useEffect } from 'react';
 import { Preloader } from '../preloader/preloader';

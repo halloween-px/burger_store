@@ -12,11 +12,12 @@ import ProfilePage from '@/pages/profile/profile';
 import ProfileForm from '@/pages/profile/profile-form';
 import { Modal } from '@/components/modal/modal';
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details';
+import FeedPage from '@/pages/feed/feed-page';
+import { ProfileOrders } from '@/pages/profile/profile-orders';
+import OrderDetailsPage from '@/pages/order/order-details';
+import { ModalFeedOrderDetails } from '@/components/modal/feed-order-details';
 
 export const MainRoutes = () => {
-	{
-		/* С модалкой грязно написано может можно лучше, но пока не знаю как ?  */
-	}
 	const location = useLocation();
 	const navigate = useNavigate();
 	const state = location.state as { background?: Location };
@@ -29,6 +30,8 @@ export const MainRoutes = () => {
 				<Route path={routesConfig.MAIN} element={<MainPage />} />
 				<Route path={routesConfig.INGREDIENTS(':id')} element={<IngredientPage />} />
 				<Route path={routesConfig.NOT_FOUND} element={<NotFoundPage />} />
+				<Route path={routesConfig.FEED_ORDERS} element={<FeedPage />} />
+				<Route path={routesConfig.FEED_ORDERS_ID(':id')} element={<OrderDetailsPage />} />
 
 				<Route
 					element={
@@ -50,21 +53,31 @@ export const MainRoutes = () => {
 					}>
 					<Route path={routesConfig.PROFILE} element={<ProfilePage />}>
 						<Route index element={<ProfileForm />} />
-						<Route path={routesConfig.PROFILE_ORDERS} element={<>История заказов</>} />
+						<Route path={routesConfig.PROFILE_ORDERS} element={<ProfileOrders />} />
 					</Route>
+					<Route path={routesConfig.PROFILE_ORDERS_ID(':id')} element={<OrderDetailsPage />} />
 				</Route>
 			</Routes>
 
-			{/* С модалкой грязно написано может можно лучше, но пока не знаю как ?  */}
-			{state?.background && ingredientsData && (
+			{state?.background && (
 				<Routes>
+					{ingredientsData && (
+						<Route
+							path={routesConfig.INGREDIENTS(':id')}
+							element={
+								<Modal title='Детали ингредиента' onClose={handleCloseModal}>
+									<IngredientDetails ingredient={ingredientsData} />
+								</Modal>
+							}
+						/>
+					)}
 					<Route
-						path={routesConfig.INGREDIENTS(':id')}
-						element={
-							<Modal title='Детали ингредиента' onClose={handleCloseModal}>
-								<IngredientDetails ingredient={ingredientsData} />
-							</Modal>
-						}
+						path={routesConfig.FEED_ORDERS_ID(':id')}
+						element={<ModalFeedOrderDetails type='feed-orders' />}
+					/>
+					<Route
+						path={routesConfig.PROFILE_ORDERS_ID(':id')}
+						element={<ModalFeedOrderDetails type='user-orders' />}
 					/>
 				</Routes>
 			)}

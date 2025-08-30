@@ -3,12 +3,12 @@
 	flex-direction: column;
 	width: 100%;
 	max-width: 600px;
+	padding-right: calc(var(--offset-base-size) * 4);
 	color: var(--text-primary-color);
 }
 
 .burger_constructor_wrapper {
 	flex-grow: 1;
-	padding-right: calc(var(--offset-base-size) * 4);
 	overflow: hidden;
 }
 

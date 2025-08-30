@@ -9,9 +9,9 @@ const IngredientPage = () => {
 	const { data: dataIngredient, isLoading, isError } = useGetIngredientsQuery();
 
 	if (isLoading) return <Preloader />;
-	if (isError || !dataIngredient) return 'Что то пошло не так';
+	if (isError || !dataIngredient?.grouped) return 'Что то пошло не так';
 
-	const ingredientArray = Object.values(dataIngredient).flat();
+	const ingredientArray = Object.values(dataIngredient.grouped).flat();
 	const ingredient = ingredientArray.find((ingr) => ingr._id === id);
 	if (!ingredient) return 'Ингредиент не найден';
 

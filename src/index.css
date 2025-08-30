@@ -25,6 +25,10 @@ button {
 	cursor: pointer;
 }
 
+.text-start {
+	text-align: start;
+}
+
 @supports (scrollbar-color: auto) {
 	.custom-scroll {
 		scrollbar-color: #8585ad #2f2f37;

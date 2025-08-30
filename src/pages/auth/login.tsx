@@ -25,7 +25,7 @@ const LoginPage = () => {
 	if (isLoading) {
 		return (
 			<div className='mt-30'>
-				<Preloader />
+				<Preloader isFull />
 			</div>
 		);
 	}

@@ -1,0 +1,16 @@
+.feed_order {
+	height: 100%;
+}
+
+.container_layout {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.feed_layout {
+	display: flex;
+	gap: calc(var(--offset-base-size) * 15);
+	height: calc(100% - 100px);
+	padding-bottom: calc(var(--offset-base-size) * 5);
+}

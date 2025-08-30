@@ -12,7 +12,7 @@ const Protected = ({ children, onlyUnAuth = false }: TProps) => {
 	const { user, isAuthChecked } = useAuth();
 	const location = useLocation();
 
-	if (!isAuthChecked) return <Preloader />;
+	if (!isAuthChecked) return <Preloader isFull />;
 
 	if (!user && !onlyUnAuth) {
 		return <Navigate to={routesConfig.LOGIN} state={{ from: location }} />;

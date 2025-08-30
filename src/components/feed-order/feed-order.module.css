@@ -1,0 +1,158 @@
+.list {
+	display: flex;
+	flex-direction: column;
+	row-gap: calc(var(--offset-base-size) * 4);
+	width: 100%;
+	height: 100%;
+	padding-right: calc(var(--offset-base-size) * 4);
+	overflow: auto;
+}
+
+.list.lg {
+	max-width: 608px;
+}
+
+.list.xl {
+	max-width: 844px;
+}
+
+.list.full {
+	max-width: 100%;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	row-gap: calc(var(--offset-base-size) * 6);
+	padding: calc(var(--offset-base-size) * 6);
+	background-color: var(--background);
+	border-radius: var(--common-border-radius-s);
+	cursor: pointer;
+
+	.item_info {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	row-gap: calc(var(--offset-base-size) * 15);
+	max-width: 580px;
+
+	.status_area {
+		display: flex;
+		gap: calc(var(--offset-base-size) * 9);
+		width: 100%;
+
+		.done,
+		.pending {
+			width: 100%;
+		}
+
+		.list_numbers {
+			margin-top: calc(var(--offset-base-size) * 6);
+		}
+
+		.done .list_numbers {
+			color: var(--colors-interface-success);
+		}
+	}
+
+	.status_wrapper {
+		display: flex;
+		gap: 24px;
+	}
+
+	.digits {
+		text-shadow: 0 0 18px var(--colors-interface-accent);
+	}
+}
+
+.status {
+	color: white;
+}
+
+.status.done {
+	color: var(--colors-interface-success);
+}
+
+.order_details_wrapper {
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto;
+}
+
+.order_details_header {
+	margin-bottom: calc(var(--offset-base-size) * 10);
+	text-align: center;
+}
+
+.ingredient {
+	height: 366px;
+	padding-top: 60px;
+}
+
+.ingredient_wrapper {
+	display: flex;
+	flex-direction: column;
+	row-gap: 16px;
+	height: calc(100% - 54px);
+	margin-top: 24px;
+	padding-right: 20px;
+	overflow: auto;
+}
+
+.ingerdient_item {
+	display: grid;
+	grid-template-columns: 64px 1fr auto;
+	align-items: center;
+	gap: 16px;
+
+	.ingredients_price {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.ingredient_image {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 64px;
+		padding: 2px;
+		background: linear-gradient(90deg, #801ab2 0%, #4c4cff 100%);
+		border-radius: 50rem;
+
+		img {
+			width: 100%;
+			height: 100%;
+			background: var(--background);
+			border-radius: 50rem;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+
+	.ingredient_title {
+		text-align: start;
+	}
+
+	.multiply {
+		width: 12px;
+	}
+}
+
+.order_details_footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 40px;
+}
+
+time {
+	color: var(--text-inactive-color);
+}

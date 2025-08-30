@@ -2,9 +2,10 @@ import { ingredientsApi } from '@/services/burger-ingredients-api';
 import { configureStore } from '@reduxjs/toolkit';
 import burgerConstructorReducer from '@/services/burger-constructor';
 import userReducer from '@/services/user/user';
-import { orderDetailsApi } from '@/services/order-details-api';
+import { orderDetailsApi } from '@/services/orders/order-details-api';
 import { userApi } from '@/services/user/user-api';
 import { authApi } from '@/services/auth/auth-api';
+import { orderApi } from '@/services/orders/order-api';
 
 export const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
 		[orderDetailsApi.reducerPath]: orderDetailsApi.reducer,
 		[userApi.reducerPath]: userApi.reducer,
 		[authApi.reducerPath]: authApi.reducer,
+		[orderApi.reducerPath]: orderApi.reducer,
 		burgerConstructor: burgerConstructorReducer,
 		userSlice: userReducer,
 	},
@@ -20,7 +22,8 @@ export const store = configureStore({
 			ingredientsApi.middleware,
 			orderDetailsApi.middleware,
 			userApi.middleware,
-			authApi.middleware
+			authApi.middleware,
+			orderApi.middleware
 		),
 });
 

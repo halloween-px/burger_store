@@ -1,8 +1,9 @@
 import { Container } from '@/components/container/container';
-import styles from './profile.module.css';
 import { NavLink, Outlet } from 'react-router-dom';
 import { routesConfig } from '@/routes/routesConfig';
 import { useAuth } from '@/hooks';
+
+import styles from './profile.module.css';
 
 const ProfilePage = () => {
 	const { logout } = useAuth();
@@ -13,8 +14,8 @@ const ProfilePage = () => {
 	const handleLogout = () => logout();
 
 	return (
-		<section className='mt-30'>
-			<Container>
+		<section className={`pt-30 ${styles.profile}`}>
+			<Container className={styles.container}>
 				<div className={styles.profile_wrapper}>
 					<nav className={styles.navigation}>
 						<div className={styles.navigation_list}>

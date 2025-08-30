@@ -51,7 +51,7 @@ export const Modal = ({
 		<div className={styles.modal} role='dialog' aria-modal='true'>
 			<div className={styles.modal_dialog}>
 				<header className={styles.modal_header}>
-					{title && <h2 className='text text_type_main-large'>{title}</h2>}
+					{title && <h2 className='text text_type_main-large mb-6'>{title}</h2>}
 					<CloseIcon className={styles.modal_close} onClick={onClose} type='primary' />
 				</header>
 				<div className={styles.modal_content}>{children}</div>

@@ -5,13 +5,14 @@ type size = 'default' | 'large';
 type position = 'start' | 'center' | 'end';
 
 type PropsPrice = {
-	price: number;
+	price: number | string;
 	size: size;
 	position?: position;
+	classNames?: string;
 };
 
 export const Price = (props: PropsPrice) => {
-	const { price, size, position } = props;
+	const { price, size, position, classNames } = props;
 
 	const sizeObject: Record<size, string> = {
 		default: 'text_type_digits-default',
@@ -19,7 +20,8 @@ export const Price = (props: PropsPrice) => {
 	};
 
 	return (
-		<span className={`${styles.price_area} ${position ? styles[position] : styles.center} mt-2`}>
+		<span
+			className={`${styles.price_area} ${position ? styles[position] : styles.center} ${classNames ? classNames : ''}`}>
 			<span itemProp='price' className={sizeObject[size]}>
 				{price}
 			</span>

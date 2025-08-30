@@ -24,3 +24,8 @@ export type TResponceIngredient = {
 	success: boolean;
 	data: TIngredient[];
 };
+
+export type TIngredientsTransformed = {
+	grouped: TGroupIngredientsByCategory;
+	raw: TIngredient[];
+};
