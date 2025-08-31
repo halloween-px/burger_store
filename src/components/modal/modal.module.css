@@ -2,7 +2,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 999;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -31,17 +31,21 @@
 
 .modal_content {
 	position: relative;
-	margin-top: calc(var(--offset-base-size) * 6);
 	text-align: center;
 }
 
 .modal_header {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 .modal_close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
 	margin-left: auto;
 	cursor: pointer;
 }

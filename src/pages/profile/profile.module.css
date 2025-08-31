@@ -1,6 +1,15 @@
+.profile {
+	height: 100%;
+}
+
 .profile_wrapper {
 	display: flex;
 	gap: calc(var(--offset-base-size) * 15);
+	height: 100%;
+}
+
+.container {
+	height: 100%;
 }
 
 .navigation {
@@ -43,4 +52,22 @@
 
 .active_input {
 	border-color: var(--colors-interface-accent);
+}
+
+.orders {
+	width: 100%;
+	max-width: 844px;
+	height: 100%;
+	margin-top: -80px;
+	padding-bottom: calc(var(--offset-base-size) * 5);
+
+	.orders_wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		max-width: 844px;
+		height: calc(100% + 80px);
+		overflow: auto;
+	}
 }

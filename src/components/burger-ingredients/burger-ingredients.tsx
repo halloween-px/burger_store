@@ -56,7 +56,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 
 		container.addEventListener('scroll', handleScroll);
 		return () => container.removeEventListener('scroll', handleScroll);
-	}, [ingredients]);
+	}, [ingredients?.grouped]);
 
 	if (isLoading) return <Preloader />;
 	if (error || !ingredients) return <div>Что-то пошло не так</div>;
@@ -66,7 +66,7 @@ export const BurgerIngredients = (): React.JSX.Element => {
 			<BurgerIngredientTabs current={currentTab} onTabClick={handleTabClick} />
 			<div className={`${styles.burger_ingredients_scroll} pr-4`} ref={containerRef}>
 				<BurgerIngredientsList
-					ingredients={ingredients}
+					ingredients={ingredients.grouped}
 					refs={{ bun: bunRef, sauce: sauceRef, main: mainRef }}
 				/>
 			</div>

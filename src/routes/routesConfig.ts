@@ -10,7 +10,9 @@ export const routesConfig = {
 	NOT_FOUND: '/*',
 
 	INGREDIENTS: (id: string) => `/ingredients/${id}`,
+	FEED_ORDERS_ID: (id: string) => `/feed/${id}`,
 	PROFILE_ORDERS_ID: (id: string) => `/profile/orders/${id}`,
+	ORDER_DETAILS: (path: string, number: string | number) => `${path}/${number}`,
 } as const;
 
 export type TRoutes = keyof typeof routesConfig;

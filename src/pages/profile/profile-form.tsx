@@ -1,4 +1,3 @@
-import styles from './profile.module.css';
 import { BaseForm } from '@/components/form/base-form';
 import { useForm } from '@/hooks/use-form';
 import { useUpdateUserMutation } from '@/services/user/user-api';
@@ -6,11 +5,13 @@ import { useAppSelector } from '@/store/hooks';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 
+import styles from './profile.module.css';
+
 const ProfileForm = () => {
 	const [editInput, setEditInput] = useState('');
 	const [showSuccess, setShowSuccess] = useState(false);
-	const user = useAppSelector((state) => state.userSlice.user);
 	const [updateUser, { isSuccess, isError }] = useUpdateUserMutation();
+	const user = useAppSelector((state) => state.userSlice.user);
 	const {
 		names,
 		values,

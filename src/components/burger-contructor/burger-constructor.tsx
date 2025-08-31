@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import styles from './burger-constructor.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from '../price/price';
 import { OrderDetails } from '../modal/order-details';
@@ -11,6 +10,9 @@ import { useSelector } from 'react-redux';
 import { selectTotalPrice } from '@/selectors/total-price';
 import { useNavigate } from 'react-router-dom';
 import { routesConfig } from '@/routes/routesConfig';
+import { formatNumber } from '@/utils/utils';
+
+import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
 	const { user } = useAuth();
@@ -52,7 +54,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 				<BunElement bun={bun} type='bottom' />
 			</div>
 			<div className={`${styles.burger_constructor_footer}`}>
-				<Price price={totalPrice} size='large' />
+				<Price price={formatNumber(totalPrice)} size='large' />
 				<Button
 					htmlType='button'
 					type='primary'
