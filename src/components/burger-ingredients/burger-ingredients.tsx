@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from './burger-ingredients.module.css';
 import { BurgerIngredientTabs } from './burger-ingredients-tabs';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { Preloader } from '../preloader/preloader';
 import { BurgerIngredientsList } from './burger-ingredients-list';
 import { TCategoryIngredientName } from '@/types/ingredients';

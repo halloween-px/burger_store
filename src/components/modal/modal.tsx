@@ -17,6 +17,7 @@ type PropsModalOverlay = {
 const ModalOverlay = ({ onClose }: PropsModalOverlay): React.JSX.Element => {
 	return (
 		<div
+			data-cy='close-modal'
 			onClick={onClose}
 			onKeyDown={(e) => {
 				if (e.key === 'Escape' || e.key === ' ') {
@@ -48,7 +49,7 @@ export const Modal = ({
 	}, [onClose]);
 
 	return createPortal(
-		<div className={styles.modal} role='dialog' aria-modal='true'>
+		<div className={styles.modal} role='dialog' aria-modal='true' data-cy='modal'>
 			<div className={styles.modal_dialog}>
 				<header className={styles.modal_header}>
 					{title && <h2 className='text text_type_main-large mb-6'>{title}</h2>}

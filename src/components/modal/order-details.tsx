@@ -3,7 +3,7 @@ import { Modal, PorpsModal } from './modal';
 import { useCallback, useEffect } from 'react';
 import { Preloader } from '../preloader/preloader';
 import { useAppDispatch } from '@/store/hooks';
-import { clearConstructor } from '@/services/burger-constructor';
+import { clearConstructor } from '@/services/burder-constructor/burger-constructor';
 
 type PropsOrderDetails = {
 	ingredientsIds: string[];
@@ -30,7 +30,9 @@ export const OrderDetails = ({ onClose, ingredientsIds }: PropsOrderDetails) => 
 				<Preloader />
 			) : (
 				<>
-					<h4 className='text text_type_digits-large'>{data?.order.number}</h4>
+					<h4 className='text text_type_digits-large' data-cy='order-number'>
+						{data?.order.number}
+					</h4>
 					<p className='text text_type_main-medium mt-8'>идентификатор заказа</p>
 					<img src='./icons/done.svg' alt='done' className='mt-15' />
 					<p className='text text_type_main-default mt-15'>Ваш заказ начали готовить</p>
