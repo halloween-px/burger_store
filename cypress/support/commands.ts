@@ -1,37 +1,53 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('prepareApp', () => {
+	cy.intercept('GET', 'api/auth/user', {
+		body: { success: true, user: { email: 'test@mail.ru', name: 'Igor' } },
+	}).as('getUser');
+
+	cy.intercept('GET', 'api/ingredients', {
+		fixture: 'ingredients.json',
+	}).as('getIngredients');
+
+	cy.intercept('POST', 'api/orders', {
+		fixture: 'order.json',
+	}).as('createOrder');
+
+	cy.viewport(1280, 800);
+	cy.visit('/', {
+		onBeforeLoad(win) {
+			win.localStorage.setItem('refreshToken', 'test-refresh');
+			win.localStorage.setItem('accessToken', 'test-access');
+		},
+	});
+});
+
+Cypress.Commands.add('initVariables', () => {
+	cy.get('[data-cy="ingredient-bun"]').first().as('bun');
+	cy.get('[data-cy="ingredient-sauce"]').first().as('sauce');
+	cy.get('[data-cy="ingredient-main"]').first().as('main');
+	cy.get('[data-cy="bun-constructor"]').first().as('bunConstructor');
+	cy.get('[data-cy="burger-constructor"]').as('burgerConstructor');
+	cy.get('[data-cy=total-price]').find('span[itemProp="price"]').as('totalPrice');
+});
+
+Cypress.Commands.add('dragAndDrop', (source, target) => {
+	const dataTransfer = new DataTransfer();
+	cy.get(source).trigger('dragstart', { dataTransfer });
+	cy.get(target)
+		.trigger('dragenter', { dataTransfer })
+		.trigger('dragover', { dataTransfer })
+		.trigger('drop', { dataTransfer })
+		.trigger('dragend');
+});
+
+Cypress.Commands.add('openIngredientModal', (ingredientAlias) => {
+	cy.get(ingredientAlias).click();
+	cy.get('[data-cy=modal]').as('modal').should('be.visible');
+	cy.get('[data-cy=close-modal]').as('closeModal');
+});
+
+Cypress.Commands.add('closeModal', () => {
+	cy.get('@closeModal').click('topLeft');
+	cy.get('@modal').should('not.exist');
+});
