@@ -38,7 +38,11 @@ export const BurgerConstructorIngredientItem = ({
 	dragRef(dropRef(ref));
 
 	return (
-		<div className={`${styles.constructor_element_area} ${className}`} ref={ref}>
+		<div
+			className={`${styles.constructor_element_area} ${className}`}
+			ref={ref}
+			data-cy='constructor-item'
+			data-type={ingredient.type}>
 			<DragIcon type='primary' className={styles.drag_icon} />
 			<ConstructorElement
 				isLocked={false}

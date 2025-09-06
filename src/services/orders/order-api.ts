@@ -25,7 +25,7 @@ export const orderApi = createApi({
 		}),
 
 		getOrderId: build.query<TResponseOrder, string | undefined>({
-			query: (number) => `/orders/${number}`, // НОМЕР Заказа ***** не id
+			query: (number) => `/orders/${number}`,
 		}),
 	}),
 });

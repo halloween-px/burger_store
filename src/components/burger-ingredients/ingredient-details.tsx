@@ -13,7 +13,9 @@ export const IngredientDetails = ({ ingredient }: PropsIngredientDetails) => {
 	return (
 		<>
 			<img src={ingredient.image_large} alt={ingredient.name} />
-			<h5 className='text text_type_main-medium'>{ingredient.name}</h5>
+			<h5 className='text text_type_main-medium' data-cy='ingredient-title'>
+				{ingredient.name}
+			</h5>
 			<ul className={`${styles.ingredient_info_list} text_type_main-default`}>
 				<li className={styles.ingredient_info_list_item}>
 					<div>Калории,ккал</div>

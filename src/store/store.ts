@@ -1,6 +1,6 @@
-import { ingredientsApi } from '@/services/burger-ingredients-api';
+import { ingredientsApi } from '@/services/burger-ingredients/burger-ingredients-api';
 import { configureStore } from '@reduxjs/toolkit';
-import burgerConstructorReducer from '@/services/burger-constructor';
+import burgerConstructorReducer from '@/services/burder-constructor/burger-constructor';
 import userReducer from '@/services/user/user';
 import { orderDetailsApi } from '@/services/orders/order-details-api';
 import { userApi } from '@/services/user/user-api';

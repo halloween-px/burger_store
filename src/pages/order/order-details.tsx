@@ -4,7 +4,7 @@ import styles from './order-details.module.css';
 import { useGetOrderIdQuery } from '@/services/orders/order-api';
 import { useParams } from 'react-router-dom';
 import { useOrders } from '@/hooks/use-orders';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { Preloader } from '@/components/preloader/preloader';
 
 const OrderDetailsPage = () => {

@@ -3,7 +3,7 @@ import { TIngredient } from '@/types/ingredients';
 import { forwardRef, Ref, useCallback } from 'react';
 import { BurgerConstructorIngredientItem } from './burger-constructor-item';
 import { useAppDispatch } from '@/store/hooks';
-import { moveIngredient, removeIngredient } from '@/services/burger-constructor';
+import { moveIngredient, removeIngredient } from '@/services/burder-constructor/burger-constructor';
 
 type TProps = {
 	ingredients: TIngredient[];
@@ -28,7 +28,7 @@ export const BurgerConstructorList = forwardRef<HTMLDivElement, TProps>(
 			[dispatch]
 		);
 		return (
-			<div className={`${styles.burger_constructor_scroll}`} ref={ref}>
+			<div className={`${styles.burger_constructor_scroll}`} ref={ref} data-cy='burger-constructor'>
 				{ingredients.length ? (
 					ingredients.map((ingredient, index) => (
 						<BurgerConstructorIngredientItem
