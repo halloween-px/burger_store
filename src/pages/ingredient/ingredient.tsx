@@ -1,6 +1,6 @@
 import styles from './ingredients.module.css';
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { useParams } from 'react-router-dom';
 import { Preloader } from '@/components/preloader/preloader';
 

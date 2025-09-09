@@ -19,7 +19,9 @@ const LoginPage = () => {
 	const err = error as TTypedError;
 	const handleFormSubmit = handleSubmit(async (val) => {
 		await login(val);
-		navigate(routesConfig.MAIN);
+		if (!error) {
+			navigate(routesConfig.MAIN);
+		}
 	});
 
 	if (isLoading) {

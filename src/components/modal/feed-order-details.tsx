@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { FeedOrderDetails } from '../feed-order/feed-order-details';
 import { useGetOrdersQuery } from '@/services/orders/order-api';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { useOrders } from '@/hooks/use-orders';
 import { Preloader } from '../preloader/preloader';
 import { Modal } from './modal';

@@ -1,4 +1,4 @@
-import { addIngridient } from '@/services/burger-constructor';
+import { addIngridient } from '@/services/burder-constructor/burger-constructor';
 import { useAppDispatch } from '@/store/hooks';
 import { TIngredient } from '@/types/ingredients';
 import { useDrop } from 'react-dnd';

@@ -1,5 +1,5 @@
 import { useGetOrdersQuery } from '@/services/orders/order-api';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { useOrders } from '@/hooks/use-orders';
 import { FeedOrderList } from '@/components/feed-order/feed-order-list';
 import { Preloader } from '@/components/preloader/preloader';

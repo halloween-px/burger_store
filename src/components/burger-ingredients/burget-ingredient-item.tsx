@@ -24,7 +24,11 @@ export const BurgerIngredientItem = ({
 	});
 
 	return (
-		<button ref={ingredientRef} className={styles.burger_ingredients_item} onClick={onClick}>
+		<button
+			ref={ingredientRef}
+			className={styles.burger_ingredients_item}
+			onClick={onClick}
+			data-cy={`ingredient-${type}`}>
 			<img src={image} alt={name} />
 			<Price price={price} size='default' position='center' />
 			<p className='text text_type_main-default mt-2 mb-6'>{name}</p>

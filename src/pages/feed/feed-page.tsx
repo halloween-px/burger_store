@@ -1,7 +1,7 @@
 import { Container } from '@/components/container/container';
 import { FeedOrderList } from '@/components/feed-order/feed-order-list';
 import { useGetOrdersQuery } from '@/services/orders/order-api';
-import { useGetIngredientsQuery } from '@/services/burger-ingredients-api';
+import { useGetIngredientsQuery } from '@/services/burger-ingredients/burger-ingredients-api';
 import { useOrders } from '@/hooks/use-orders';
 import { Preloader } from '@/components/preloader/preloader';
 import { FeedOrderInfo } from '@/components/feed-order/feed-order-info';

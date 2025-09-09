@@ -54,15 +54,19 @@ export const BurgerConstructor = (): React.JSX.Element => {
 				<BunElement bun={bun} type='bottom' />
 			</div>
 			<div className={`${styles.burger_constructor_footer}`}>
-				<Price price={formatNumber(totalPrice)} size='large' />
-				<Button
-					htmlType='button'
-					type='primary'
-					size='medium'
-					extraClass='ml-2'
-					onClick={handleOpenModal}>
-					Оформить заказ
-				</Button>
+				<div data-cy='total-price'>
+					<Price price={formatNumber(totalPrice)} size='large' />
+				</div>
+				<div data-cy='place-order-btn'>
+					<Button
+						htmlType='button'
+						type='primary'
+						size='medium'
+						extraClass='ml-2'
+						onClick={handleOpenModal}>
+						Оформить заказ
+					</Button>
+				</div>
 			</div>
 			{orderDetailsModal.isOpen && (
 				<OrderDetails onClose={orderDetailsModal.close} ingredientsIds={ingredientsOrderIds} />
